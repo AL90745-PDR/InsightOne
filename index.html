@@ -215,7 +215,8 @@
             <option value="D25">D25 letter verbiage</option>
             <option value="HCM">HCM </option>
             <option value="freq_8">Frequency 8 claim request </option>
-
+            <option value="phi">PHI</option>
+            <option value="Corr">Correspondance</option>
 
           </select>
           <input type="text" id="notesInput" placeholder="Search notes..." oninput="showNotes()" onkeydown="if(event.key==='Enter'){showNotes()}" />
@@ -384,8 +385,27 @@
           "<strong>Frequency 8 claim close with need info </strong> - Please be advised, we have received your request for recoupment of payment.  Please submit a corrected claim form with frequency 8 referencing the original claim number for further handling of the claim. ",
 
         ],
+        phi  : [
+          "<strong>PHI sent letter and dismiss inquiry</strong> -The information received contains PHI for multiple members not relevant to your claim. We are unable to honor your request to forward these documents to the member’s benefit office due to HIPAA’s minimum necessary rule. Please remove all member information that is not relevant to your request and resubmit your request to the local Blue Cross and Blue Shield office. ",
 
+        ],
+        Corr : [
+          "Claim has corrected claim in attachment which is out of score of PDR, hence route to correspondence. ",
+          "<strong> Edit finalized code as per your claim correspondance finalized code</strong> Claim has  finalization code  RCLMCO which is out of score of PDR, hence route to correspondence.",
+          "Created from claim denied for solicited information which is out of scope for pdr hence routed to correspondence",
+          "<strong> Edit EOB as per your claim correspondance EOB</strong> Provider submitted the claim with EOB 00940 which is out of scope for PDR. Hence routed to correspondence for review",
+          "Claim has  CPRAS  message for Surprise billing which is out of score of PDR, hence route to  correspondence.",
+          "Claim has  CPRAS  message for Correspondence which is out of score of PDR, hence route to correspondence.",
+          "Claim has  CPRAS  message for clinical appeal  which is out of score of PDR, hence route to correspondence.",
+          "Claim has  CPRAS  message for out of state  which is out of score of PDR, hence route to correspondence.",
+          "Claim has  CPRAS  message for clinical appeal  which is out of score of PDR, hence route to correspondence.",
+          "claim has DF 1331/1332/1333  which is out of scope for PDR hence routed to correspondence.",
+          "claim has medrec in open status  which is out of scope for PDR hence routed to correspondence.",
+          "original claim denied with EOB 00014 which is out of scope of PDR, hence route to Correspondence.",
+          "Provider disputing review of clinical appeals, which is out of scope for PDR, hence routed to correspondence.",
+          "Claim has EOB of clinical appeal which is out of scope of pdr,hence routed to correspondence.",
 
+        ],
         };
 
       let matchedResults = [];
