@@ -1,11 +1,12 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>InsightOne - Unified Work Tool</title>
-  <link rel="icon" type="image/png" href="image.png" />
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>InsightOne - Unified Work Tool</title>
+<link href="image.png" rel="icon" type="image/png"/>
+<style>
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
     * { box-sizing: border-box; }
     body, html {
@@ -181,108 +182,127 @@
 </style>
 </head>
 <body>
-  <header>
+<header>
     InsightOne - Unified Work Tool
   </header>
-  <div id="mainContainer">
-    <div class="sidebar">
-      <a class="active" onclick="switchTab('notes')">Notes</a>
-      <a onclick="switchTab('links')">Links</a>
-      <a onclick="switchTab('excel')">Excel</a>
-      <a onclick="switchTab('divider')">Divider</a>
-    </div>
-    <div class="content">
-
-
-      <!-- Notes Tab -->
-      <div id="notes" class="tab-section active">
-        <div class="notes-container">
-          <select id="Denial" onchange="showNotes()">
-            <option value="">Denial Notes</option>
-            <option value="benefit">Benefit & authorization</option>
-            <option value="Eligibility">Eligibility</option>
-            <option value="Timely_filing">Timely Filing 0230 Issue</option>
-            <option value="no_sccf">NO SCCF Claim</option>
-            <option value="1079">COB 1079</option>
-            <option value="DOR">DOR request</option>
-            <option value="Zero_pricing">Zero pricing letter</option>
-            <option value="Close">Close out</option>
-            <option value="Adjustment">Adjustment</option>
-            <option value="dismiss">Ovt dismiss</option>
-            <option value="duplicate">Duplicate</option>
-            <option value="CCCR">Route to CCCR</option>
-            <option value="Dup_cccr">Duplicate claim CCCR denial</option>
-            <option value="D25">D25 letter verbiage</option>
-            <option value="HCM">HCM </option>
-            <option value="freq_8">Frequency 8 claim request </option>
-            <option value="phi">PHI</option>
-            <option value="Corr">Correspondance</option>
-
-          </select>
-          <input type="text" id="notesInput" placeholder="Search notes..." oninput="showNotes()" onkeydown="if(event.key==='Enter'){showNotes()}" />
-          <button onclick="showNotes()">Search Notes</button>
-        </div>
-        <div id="resultBox"></div>
-      </div>
-
-      <!-- Excel Tab with dropdown + search -->
-      <div id="excel" class="tab-section">
-        <div class="notes-container">
-          <select id="excelTableSelect" onchange="loadExcelTable()">
-            <option value="">Select Excel Table</option>
-            <option value="table1">SF- DF discription</option>
-            <option value="table2">WGS claim category of work </option>
-            <option value="table3">letter verbiage</option>
-          </select>
-          <input type="text" id="excelSearch" placeholder="Search in table..." oninput="searchExcelTable()" onkeydown="if(event.key==='Enter'){searchExcelTable()}" />
-          <button onclick="searchExcelTable()">Search</button>
-        </div>
-        
-    <div class="pagination-container">
-      <button id="prevPage" onclick="changePage(-1)" disabled>Previous</button>
-      <span id="pageInfo">Page 1</span>
-      <button id="nextPage" onclick="changePage(1)">Next</button>
-    </div>
-    <div id="excelTableContainer">
+<div id="mainContainer">
+<div class="sidebar">
+<a class="active" onclick="switchTab('notes')">Notes</a>
+<a onclick="switchTab('links')">Links</a>
+<a onclick="switchTab('excel')">Excel</a>
+<a onclick="switchTab('divider')">Divider</a>
+<a onclick="switchTab('textextract')">Text Extract</a>
 </div>
-      </div>
-
-      <!-- Links Tab -->
-      <div id="links" class="tab-section">
-        <div class="notes-container">
-          <select id="linkCategory" onchange="filterLinks()">
-            <option value="">All Categories</option>
-            <option value="CIW">CIW</option>
-            <option value="Blue">Blue Square</option>
-            <option value="File_net">File net</option>
-            <option value="BPM">BPM</option>
-            <option value="X_pricer">Network X pricer</option>
-            <option value="KL">Knowledge library</option>
-            <option value="Conduent">Conduent</option>
-
-          </select>
-          <input type="text" id="linkSearch" placeholder="Search links..." oninput="filterLinks()" />
-        </div>
-        <div id="linksResult" class="notes-container"></div>
-      </div>
-
-      <!-- Divider Tab -->
-      <div id="divider" class="tab-section">
-        <div class="notes-container">
-          <textarea id="dividerText" placeholder="Paste text to divide..." style="flex:1; min-height: 120px;"></textarea>
-          <button onclick="divideText()">Divide Text</button>
-        </div>
-        <div id="lineResult" class="notes-container" style="flex-direction: column; align-items: flex-start;"></div>
-      </div>
-
-    </div>
-  </div>
-
-  <footer>
-    &copy; About us:- Team PDR    |    Owner :- Aryan singh(Associate Claim - PDR)    |    For feedback:- aryan.singh@carelon.com
+<div class="content">
+<!-- Notes Tab -->
+<div class="tab-section active" id="notes">
+<div class="notes-container">
+<select id="Denial" onchange="showNotes()">
+<option value="">Denial Notes</option>
+<option value="benefit">Benefit &amp; authorization</option>
+<option value="Eligibility">Eligibility</option>
+<option value="Timely_filing">Timely Filing 0230 Issue</option>
+<option value="no_sccf">NO SCCF Claim</option>
+<option value="1079">COB 1079</option>
+<option value="DOR">DOR request</option>
+<option value="Zero_pricing">Zero pricing letter</option>
+<option value="Close">Close out</option>
+<option value="Adjustment">Adjustment</option>
+<option value="dismiss">Ovt dismiss</option>
+<option value="duplicate">Duplicate</option>
+<option value="CCCR">Route to CCCR</option>
+<option value="Dup_cccr">Duplicate claim CCCR denial</option>
+<option value="D25">D25 letter verbiage</option>
+<option value="HCM">HCM </option>
+<option value="freq_8">Frequency 8 claim request </option>
+<option value="phi">PHI</option>
+<option value="Corr">Correspondance</option>
+</select>
+<input id="notesInput" oninput="showNotes()" onkeydown="if(event.key==='Enter'){showNotes()}" placeholder="Search notes..." type="text"/>
+<button onclick="showNotes()">Search Notes</button>
+</div>
+<div id="resultBox"></div>
+</div>
+<!-- Excel Tab with dropdown + search -->
+<div class="tab-section" id="excel">
+<div class="notes-container">
+<select id="excelTableSelect" onchange="loadExcelTable()">
+<option value="">Select Excel Table</option>
+<option value="table1">SF- DF discription</option>
+<option value="table2">WGS claim category of work </option>
+<option value="table3">letter verbiage</option>
+</select>
+<input id="excelSearch" oninput="searchExcelTable()" onkeydown="if(event.key==='Enter'){searchExcelTable()}" placeholder="Search in table..." type="text"/>
+<button onclick="searchExcelTable()">Search</button>
+</div>
+<div class="pagination-container">
+<button disabled="" id="prevPage" onclick="changePage(-1)">Previous</button>
+<span id="pageInfo">Page 1</span>
+<button id="nextPage" onclick="changePage(1)">Next</button>
+</div>
+<div id="excelTableContainer">
+</div>
+</div>
+<!-- Links Tab -->
+<div class="tab-section" id="links">
+<div class="notes-container">
+<select id="linkCategory" onchange="filterLinks()">
+<option value="">All Categories</option>
+<option value="CIW">CIW</option>
+<option value="Blue">Blue Square</option>
+<option value="File_net">File net</option>
+<option value="BPM">BPM</option>
+<option value="X_pricer">Network X pricer</option>
+<option value="KL">Knowledge library</option>
+<option value="Conduent">Conduent</option>
+</select>
+<input id="linkSearch" oninput="filterLinks()" placeholder="Search links..." type="text"/>
+</div>
+<div class="notes-container" id="linksResult"></div>
+</div>
+<!-- Text Extract Tab -->
+<div class="tab-section" id="textextract">
+<div class="notes-container" style="flex-direction: column; gap: 20px;">
+<h2 style="margin-top: 0;">Paste Screenshot (Ctrl+V) or Upload File to Extract Text</h2>
+<div class="drop-zone" id="dropZone" style="border: 2px dashed #00adb5; background: #fff; padding: 40px; text-align: center; color: #333; border-radius: 10px; cursor: pointer;">
+      👉 Drag &amp; Drop, Click to Upload, or <strong>Paste Screenshot (Ctrl+V)</strong>
+<input accept="image/*,.txt,.pdf" id="fileInput" style="display:none" type="file"/>
+</div>
+<div id="fileName" style="font-weight: bold;"></div>
+<img id="preview" style="display:none; max-width: 100%; border-radius: 6px;"/>
+<div id="status" style="font-style: italic;"></div>
+<div style="display: flex; gap: 10px; margin-top: 20px; width: 100%;">
+<input id="searchInput" oninput="searchText()" placeholder="Search text..." style="flex: 1; padding: 12px; font-size: 16px; border: 1px solid #ccc; border-radius: 8px;" type="text"/>
+<button onclick="searchText()">Search</button>
+<button onclick="convertToCaps()" style="background-color: #4CAF50; color: white;">CAPS</button>
+<button onclick="resetTextExtract()" style="background-color: #f44336; color: white;">Reset</button>
+</div>
+<div id="outputWrapper" style="position: relative; max-height: 300px; overflow: auto; border: 1px solid #ccc; border-radius: 8px; background: white; width: 100%; margin-top: 10px;">
+<div contenteditable="true" id="output" spellcheck="false" style="padding: 10px; font-size: 16px; white-space: pre-wrap;"></div>
+</div>
+</div>
+</div>
+<!-- PDF.js Library with inline worker to avoid importScripts error -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+<script>
+  pdfjsLib.GlobalWorkerOptions.workerSrc = window.URL.createObjectURL(new Blob([`
+    importScripts('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js');
+  `], { type: 'application/javascript' }));
+</script>
+<!-- Divider Tab -->
+<div class="tab-section" id="divider">
+<div class="notes-container">
+<textarea id="dividerText" placeholder="Paste text to divide..." style="flex:1; min-height: 120px;"></textarea>
+<button onclick="divideText()">Divide Text</button>
+</div>
+<div class="notes-container" id="lineResult" style="flex-direction: column; align-items: flex-start;"></div>
+</div>
+</div>
+</div>
+<footer>
+    © About us:- Team PDR    |    Owner :- Aryan singh(Associate Claim - PDR)    |    For feedback:- aryan.singh@carelon.com
   </footer>
-
-  <script>
+<script>
     // Tab switching
     function switchTab(tab) {
       document.querySelectorAll('.tab-section').forEach(el => el.classList.remove('active'));
@@ -385,6 +405,7 @@
           "<strong>Frequency 8 claim close with need info </strong> - Please be advised, we have received your request for recoupment of payment.  Please submit a corrected claim form with frequency 8 referencing the original claim number for further handling of the claim. ",
 
         ],
+
         phi  : [
           "<strong>PHI sent letter and dismiss inquiry</strong> -The information received contains PHI for multiple members not relevant to your claim. We are unable to honor your request to forward these documents to the member’s benefit office due to HIPAA’s minimum necessary rule. Please remove all member information that is not relevant to your request and resubmit your request to the local Blue Cross and Blue Shield office. ",
 
@@ -406,6 +427,7 @@
           "Claim has EOB of clinical appeal which is out of scope of pdr,hence routed to correspondence.",
 
         ],
+
         };
 
       let matchedResults = [];
@@ -28315,6 +28337,376 @@ function loadExcelTable() {
   }
 }
 
+</script>
+<script src="https://cdn.jsdelivr.net/npm/tesseract.js@2.1.5/dist/tesseract.min.js"></script>
+<script>
+    const dropZone = document.getElementById('dropZone');
+    const fileInput = document.getElementById('fileInput');
+    const output = document.getElementById('output');
+    const outputWrapper = document.getElementById('outputWrapper');
+    const status = document.getElementById('status');
+    const fileName = document.getElementById('fileName');
+    const preview = document.getElementById('preview');
+    const searchInput = document.getElementById('searchInput');
+
+    let originalText = '';
+    let currentMatchIndex = 0;
+    let matches = [];
+
+    dropZone.addEventListener('click', () => fileInput.click());
+    dropZone.addEventListener('dragover', e => {
+      e.preventDefault();
+      dropZone.style.backgroundColor = '#e0f0ff';
+    });
+    dropZone.addEventListener('dragleave', () => {
+      dropZone.style.backgroundColor = 'white';
+    });
+    dropZone.addEventListener('drop', e => {
+      e.preventDefault();
+      dropZone.style.backgroundColor = 'white';
+      handleFile(e.dataTransfer.files[0]);
+    });
+    fileInput.addEventListener('change', () => handleFile(fileInput.files[0]));
+
+    document.addEventListener('paste', event => {
+      const items = event.clipboardData.items;
+      for (let i = 0; i < items.length; i++) {
+        if (items[i].type.indexOf("image") !== -1) {
+          const blob = items[i].getAsFile();
+          handleFile(blob, 'Screenshot');
+          break;
+        }
+      }
+    });
+
+    searchInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        goToNextMatch();
+      }
+    });
+
+    function handleFile(file, customName = '') {
+      if (!file) return;
+
+      const label = customName ? customName : file.name;
+      fileName.textContent = `📁 File: ${label}`;
+      output.innerHTML = '';
+      preview.style.display = 'none';
+      status.textContent = '';
+      originalText = '';
+      searchInput.value = '';
+      matches = [];
+      currentMatchIndex = 0;
+
+      if (file.type.startsWith('image/')) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          preview.src = e.target.result;
+          preview.style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+
+        status.innerText = "🕒 Processing image for text...";
+        Tesseract.recognize(file, 'eng', {
+          logger: m => console.log(m)
+        }).then(({ data: { text } }) => {
+          originalText = text;
+          renderFormattedOutput(fulltext);
+          status.innerText = "✅ Text extracted successfully.";
+        }).catch(() => {
+          status.innerText = "❌ Failed to extract text.";
+        });
+
+      } else if (file.type === 'text/plain') {
+        const reader = new FileReader();
+        reader.onload = () => {
+          originalText = reader.result;
+          output.innerText = originalText;
+          status.innerText = "✅ Text file loaded.";
+        };
+        reader.readAsText(file);
+      }  else if (file.type === 'application/pdf') {
+      status.innerText = 'Processing PDF...';
+      const reader = new FileReader();
+      reader.onload = async function () {
+        try {
+          const typedarray = new Uint8Array(reader.result);
+          const pdf = await pdfjsLib.getDocument({ data: typedarray }).promise;
+          let text = '';
+          for (let i = 1; i <= pdf.numPages; i++) {
+            const page = await pdf.getPage(i);
+            const content = await page.getTextContent();
+            const strings = content.items.map(item => item.str);
+            text += strings.join(' ') + '\n';
+          }
+          output.innerText = text.trim() || '[No text extracted – this PDF may be image-based]';
+          status.innerText = 'PDF text extracted successfully.';
+        } catch (err) {
+          console.error('PDF.js extraction error:', err);
+          output.innerText = '';
+          status.innerText = '❌ Failed to read PDF. Try another file or check console.';
+        }
+      };
+      reader.readAsArrayBuffer(file);
+    }else {
+        output.innerText = "";
+        status.innerText = "❌ Unsupported file type.";
+      }
+    }
+
+    function searchText() {
+      const query = searchInput.value.trim();
+      if (!originalText) return;
+
+      if (!query) {
+        output.innerText = originalText;
+        matches = [];
+        return;
+      }
+
+      const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+      const highlighted = originalText.replace(regex, '<mark>$1</mark>');
+      output.innerHTML = highlighted;
+
+      matches = Array.from(output.querySelectorAll('mark'));
+      currentMatchIndex = 0;
+      if (matches.length) {
+        scrollToMatch(currentMatchIndex);
+      }
+    }
+
+    function goToNextMatch() {
+      if (matches.length === 0) return;
+
+      currentMatchIndex = (currentMatchIndex + 1) % matches.length;
+      scrollToMatch(currentMatchIndex);
+    }
+
+    function scrollToMatch(index) {
+      const match = matches[index];
+      if (match) {
+        match.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        match.style.backgroundColor = '#ff0';
+      }
+document.getElementById('dropZone').addEventListener('click', function () {
+    const fileInput = document.getElementById('fileInput');
+    fileInput.click();
+});
+
+// Ensure the change event works for every file selection
+document.getElementById('fileInput').addEventListener('change', function (event) {
+    handleFileSelect(event);
+});
+    function handleFileSelect(event) {
+        const file = event.target.files[0];
+        if (file) {
+            document.getElementById('fileName').textContent = `Selected: ${file.name}`;
+        }
+    }
+function renderFormattedOutput(text) {
+  const output = document.getElementById("output");
+
+  if (/(\t| {2,})/.test(text)) {
+    const lines = text.trim().split('\n');
+    const rows = lines.map(line => line.split(/\t| {2,}/).map(cell => cell.trim()));
+    const tableHTML = `
+      <table style="width: 100%; border-collapse: collapse;">
+        ${rows.map((row, i) => `
+          <tr>
+            ${row.map(cell => `
+              <${i === 0 ? "th" : "td"} style="border: 1px solid #ccc; padding: 8px;">${cell}</${i === 0 ? "th" : "td"}>
+            `).join('')}
+          </tr>
+        `).join('')}
+      </table>
+    `;
+    output.innerHTML = tableHTML;
+} else {
+  const lines = text.split(/\\r?\\n/).filter(l => l.trim() !== '');
+  output.innerHTML = lines.map(line => {
+    const isBullet = /^[-•*]/.test(line.trim());
+    return isBullet
+      ? `<li style="margin-bottom: 6px;">${line.trim()}</li>`
+      : `<p style="margin-bottom: 10px;">${line.trim()}</p>`;
+  }).join('');
+}
+}
+
+  </script>
+<script>
+  function resetTextExtract() {
+    document.getElementById('fileInput').value = '';
+    document.getElementById('preview').style.display = 'none';
+    document.getElementById('fileName').textContent = '';
+    document.getElementById('status').textContent = '';
+    document.getElementById('searchInput').value = '';
+    document.getElementById('output').innerText = '';
+    document.getElementById('output').removeAttribute('data-original-text');
+  }
+  function convertToCaps() {
+    const output = document.getElementById('output');
+    output.innerText = output.innerText.toUpperCase();
+  }
+</script>
+<!-- PDF.js Library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+<script>
+pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
+
+document.getElementById("dropZone").addEventListener("click", () => {
+  document.getElementById("fileInput").click();
+});
+
+document.getElementById("fileInput").addEventListener("change", function () {
+  const file = this.files[0];
+  if (file && file.type === "application/pdf") {
+    document.getElementById("fileName").textContent = file.name;
+    document.getElementById("status").textContent = "Processing PDF...";
+    extractTextFromPDF(file);
+  }
+});
+
+function extractTextFromPDF(file) {
+  const reader = new FileReader();
+  reader.onload = function () {
+    const typedarray = new Uint8Array(this.result);
+
+    pdfjsLib.getDocument({ data: typedarray }).promise.then(async function (pdf) {
+      let extractedText = "";
+      for (let i = 1; i <= pdf.numPages; i++) {
+        const page = await pdf.getPage(i);
+        const textContent = await page.getTextContent();
+        const text = textContent.items.map(item => item.str).join(" ");
+        extractedText += text + "\n\n";
+      }
+
+      document.getElementById("output").textContent = extractedText.trim();
+      document.getElementById("status").textContent = "PDF text extracted.";
+    }).catch(error => {
+      console.error("Error extracting PDF:", error);
+      document.getElementById("status").textContent = "Failed to read PDF.";
+    });
+  };
+  reader.readAsArrayBuffer(file);
+}
+</script>
+<!-- Tesseract.js for OCR -->
+<script src="https://cdn.jsdelivr.net/npm/tesseract.js@4.0.2/dist/tesseract.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const outputEl = document.getElementById('output');
+  const statusEl = document.getElementById('status');
+  const previewEl = document.getElementById('preview');
+  const fileNameEl = document.getElementById('fileName');
+
+  // Handle Ctrl+V paste for screenshots
+  document.addEventListener('paste', async function (event) {
+    const clipboardItems = event.clipboardData?.items || [];
+    for (let i = 0; i < clipboardItems.length; i++) {
+      const item = clipboardItems[i];
+      if (item.type.indexOf('image') !== -1) {
+        const blob = item.getAsFile();
+        if (blob) {
+          // Show loading
+          outputEl.textContent = '';
+          statusEl.textContent = 'Processing pasted screenshot...';
+          fileNameEl.textContent = 'Pasted Screenshot';
+
+          // Show preview
+          const reader = new FileReader();
+          reader.onload = async function (e) {
+            previewEl.src = e.target.result;
+            previewEl.style.display = 'block';
+
+            // OCR with Tesseract
+            try {
+              const result = await Tesseract.recognize(e.target.result, 'eng', {
+                logger: m => console.log(m)
+              });
+              outputEl.textContent = result.data.text;
+              statusEl.textContent = 'Text extracted from pasted screenshot.';
+            } catch (err) {
+              outputEl.textContent = '';
+              statusEl.textContent = 'Failed to extract text: ' + err.message;
+            }
+          };
+          reader.readAsDataURL(blob);
+          break;
+        }
+      }
+    }
+  });
+});
+</script>
+<script>
+document.getElementById('fileInput').addEventListener('change', function(event) {
+  const file = event.target.files[0];
+  if (!file || !file.type.startsWith('image/')) return;
+
+  const outputEl = document.getElementById('output');
+  const statusEl = document.getElementById('status');
+  const previewEl = document.getElementById('preview');
+  const fileNameEl = document.getElementById('fileName');
+
+  fileNameEl.textContent = file.name;
+  outputEl.textContent = '';
+  statusEl.textContent = 'Processing uploaded image...';
+
+  const reader = new FileReader();
+  reader.onload = async function(e) {
+    previewEl.src = e.target.result;
+    previewEl.style.display = 'block';
+
+    try {
+      const result = await Tesseract.recognize(e.target.result, 'eng', {
+        logger: m => console.log(m)
+      });
+      outputEl.textContent = result.data.text;
+      statusEl.textContent = 'Text extracted from uploaded image.';
+    } catch (err) {
+      outputEl.textContent = '';
+      statusEl.textContent = 'Failed to extract text: ' + err.message;
+    }
+  };
+  reader.readAsDataURL(file);
+});
+</script>
+
+<script>
+  function searchText() {
+    const searchInput = document.getElementById('searchInput').value.trim().toLowerCase();
+    const outputDiv = document.getElementById('output');
+    const originalText = outputDiv.innerText || outputDiv.textContent;
+    const status = document.getElementById('status');
+
+    if (!outputDiv.dataset.originalText) {
+      outputDiv.dataset.originalText = originalText;
+    }
+
+    const lines = outputDiv.dataset.originalText.split('\n');
+    let matchCount = 0;
+
+    const highlighted = lines.map((line, index) => {
+      if (searchInput && line.toLowerCase().includes(searchInput)) {
+        matchCount++;
+        const regex = new RegExp(searchInput, 'gi');
+        return `<div><strong>${index + 1}.</strong> ${line.replace(regex, '<mark>$&</mark>')}</div>`;
+      } else {
+      document.getElementById('status').innerText = matchCount + ' search' + (matchCount === 1 ? '' : 'es') + ' found';
+      }
+    }).join('');
+  if (!searchInput) {
+    outputDiv.innerHTML = outputDiv.dataset.originalText
+      .split('\n')
+      .map((line, index) => `<div><strong>${index + 1}.</strong> ${line}</div>`)
+      .join('');
+    status.innerText = '';
+  } else {
+    outputDiv.innerHTML = highlighted;
+    status.innerText = totalMatches > 0 ? `${totalMatches} search${totalMatches === 1 ? '' : 'es'} found` : '';
+  }
+}
 </script>
 </body>
 </html>
