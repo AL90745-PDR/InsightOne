@@ -7,6 +7,97 @@
 <title>InsightOne - Unified Work Tool</title>
 <link href="image.png" rel="icon" type="image/png"/>
 <style>
+
+.sidebar.collapsed {
+  transform: translateX(-100%);
+  pointer-events: none;
+  background: transparent !important;
+  box-shadow: none !important;
+  height: 0;
+  width: 0;
+  overflow: hidden;
+}
+    
+.sidebar {
+  transition: transform 0.3s ease;
+}
+
+
+
+/* Smooth transitions and interactions */
+body, button, input, select, textarea {
+  transition: all 0.3s ease-in-out;
+}
+
+/* Enhance sidebar hover effects */
+.sidebar a {
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.sidebar a:hover {
+  transform: translateX(5px);
+}
+
+/* Modern scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: #00adb5;
+  border-radius: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #eee;
+}
+
+/* Notes and dropdown animation */
+.notes-container {
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Hover bounce effect for buttons */
+button:hover {
+  transform: translateY(-2px);
+}
+
+/* Focus ring glow for input elements */
+input:focus, select:focus, textarea:focus {
+  box-shadow: 0 0 8px rgba(0, 173, 181, 0.6);
+}
+
+/* Enhance content area */
+.content {
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 40px 50px;
+}
+
+/* Smooth tab switching */
+.tab-section {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(10px);
+  transition: all 0.3s ease-in-out;
+}
+.tab-section.active {
+  opacity: 1;
+  pointer-events: all;
+  transform: translateY(0);
+}
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+#userName::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
     * { box-sizing: border-box; }
     body, html {
@@ -182,7 +273,104 @@
 </style>
 </head>
 <body>
-<header>
+
+<div id="loginScreen" style="
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%; 
+    background: linear-gradient(-45deg, #1e3c72, #2a5298, #1e3c72); 
+    background-size: 400% 400%;
+    animation: gradientBG 10s ease infinite;
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    flex-direction: column; 
+    z-index: 1000;
+    font-family: 'Montserrat', sans-serif;
+    text-align: center;
+">
+  <div style="
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 40px 50px;
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+      max-width: 400px;
+      width: 90%;
+  ">
+    <h1 style="
+        font-size: 28px; 
+        color: #ffffff;
+        text-transform: uppercase;
+        margin-bottom: 12px;
+        letter-spacing: 2px;
+    ">Welcome to InsightOne</h1>
+    <p style="color: #e0e0e0; font-size: 15px; margin-bottom: 20px;">Enter your name to continue</p>
+    <input type="text" id="userName" placeholder="Your Name" style="
+        width: 100%;
+        padding: 12px 16px;
+        font-size: 16px;
+        border: none;
+        border-radius: 8px;
+        outline: none;
+        margin-bottom: 20px;
+        background: rgba(255,255,255,0.15);
+        color: white;
+        box-shadow: inset 0 1px 2px rgba(255,255,255,0.1);
+    "/>
+    <button onclick="login()" style="
+        width: 100%; 
+        padding: 12px 0;
+        font-size: 16px; 
+        border: none; 
+        border-radius: 8px; 
+        cursor: pointer; 
+        font-weight: bold;
+        background: linear-gradient(90deg, #00adb5, #00fff7);
+        color: #003344;
+        transition: transform 0.2s ease;
+        box-shadow: 0 4px 14px rgba(0, 173, 181, 0.4);
+    " onmousedown="this.style.transform='scale(0.97)'" onmouseup="this.style.transform='scale(1)'">
+      Login
+    </button>
+  </div>
+</div>
+<script>
+    let loggedInUser = \'\';
+function login() {
+        const userName = document.getElementById('userName').value.trim();
+        if (userName) {
+    loggedInUser = userName;
+            document.getElementById('loginScreen').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        } else {
+            alert('Please enter your name to proceed.');
+        }
+    }
+    document.addEventListener('DOMContentLoaded', () => {
+        document.getElementById('loginScreen').style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    });
+</script>
+
+
+
+
+
+
+<div id="sidebarToggle" onclick="toggleSidebar()" style="
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 1001;
+  cursor: pointer;
+">
+  <img src="https://cdn-icons-png.flaticon.com/512/1828/1828859.png" alt="Menu" style="width: 28px; height: 28px;">
+</div>
+<header style="display: flex; align-items: center; justify-content: center; gap: 12px;"><img src="https://cdn-icons-png.flaticon.com/512/3652/3652191.png" alt="Logo" style="height: 36px; width: 36px;">
     InsightOne - Unified Work Tool
   </header>
 <div id="mainContainer">
@@ -312,109 +500,110 @@
     }
 
     // Notes search/filter
-    function showNotes() {
-      const denialKey = document.getElementById('Denial').value;
-      const input = document.getElementById('notesInput').value.trim().toLowerCase();
-      const output = document.getElementById('resultBox');
-      output.innerHTML = '';
+    
+function showNotes() {
+  const denialKey = document.getElementById('Denial').value;
+  const input = document.getElementById('notesInput').value.trim().toLowerCase();
+  const output = document.getElementById('resultBox');
+  output.innerHTML = '';
 
-      const notesData = {
+  const notesData = {
         benefit: [
-          "<strong>Sent GI 168 to HP for benefit and authorization</strong> - Provider has submitted medical records and is requesting reconsideration of denied charges. Please post a General Inquiry Status update message with expected date of resolution if an outcome cannot be supplied. This includes inquiries where reach out to external parties such as members or providers is needed in order to resolve the question. Please do not close this GI until we receive a final determination that can be shared with our provider."
+          "<strong>Sent GI 168 to HP for benefit and authorization -</strong>  Provider has submitted medical records and is requesting reconsideration of denied charges. Please post a General Inquiry Status update message with expected date of resolution if an outcome cannot be supplied. This includes inquiries where reach out to external parties such as members or providers is needed in order to resolve the question. Please do not close this GI until we receive a final determination that can be shared with our provider."
 
         ],
         Eligibility: [
-          "<strong>Sent GI 105 to HP for eligibility </strong> - Please confirm if (DF code) is valid. If denied in error, please consider a streamline adjustment. This is an adjustable DFMC."
+          "<strong>Sent GI 105 to HP for eligibility -</strong>  Please confirm if (DF code) is valid. If denied in error, please consider a streamline adjustment. This is an adjustable DFMC."
 
         ],
         Timely_filing: [
-          "<strong>Sent GI 111 to HP for Timely filing  DF  0230</strong> - Please review the attached provider dispute for timely filing denial. This GI must not be closed until all actions are complete. If the inquiry cannot be resolved within 10 calendar days of receipt, please update the GI Status field by the 10th calendar day with the actions taken to date to obtain the information and the expected resolution date."
+          "<strong>Sent GI 111 to HP for Timely filing  DF  0230 -</strong>  Please review the attached provider dispute for timely filing denial. This GI must not be closed until all actions are complete. If the inquiry cannot be resolved within 10 calendar days of receipt, please update the GI Status field by the 10th calendar day with the actions taken to date to obtain the information and the expected resolution date."
 
         ],
         no_sccf: [
-          "<strong>RANDME sent letter </strong> - Please be advised, inquiry regarding above claim has been received and reviewed. After review, it has been determined that claim was denied as the address of the subscriber or the patient is not in the local servicing area. Please submit to the correct local plan.",
-          "<strong>RG2400 sent letter </strong> - Please be advised that the services indicated on this claim were rendered in the members home plan service area and therefore this claim should be filed to the members home plan, Blue Cross Blue Shield of Massachusetts.",
-          "<strong>RANLAB sent lettter </strong> - Thank you for your Inquiry  , Please be advised that This claim/service is not payable under our service area. This claim must be filed to the Payer/Plan in whose service area the specimen was collected.",
-          "<strong>R17400 sent letter </strong> - Please be advised, inquiry regarding above claim has been received and reviewed. After review, it has been determined that modifier code does not correspondence with procedure code. Please resubmit corrected claim for further process.",
-          "<strong>RANSRX sent letter </strong> - Please be notified that this claim/service is not payable under our service area.  The claim must be filed to the Payer/Plan in whose service area the Ordering Physician is located.",
-          "<strong>RLABP0 sent letter </strong> - Please be notified that the claim is denied as the laboratory procedures must be performed by the participating Laboratory Provider and is not the member's responsibility.",
-          "<strong>R19044 sent letter</strong> - Please be notified that the claim is denied correctly as there is no surgery claim found in history. Please review and resubmit your request for further processing of this claim."
+          "<strong>RANDME sent letter -</strong>  Please be advised, inquiry regarding above claim has been received and reviewed. After review, it has been determined that claim was denied as the address of the subscriber or the patient is not in the local servicing area. Please submit to the correct local plan.",
+          "<strong>RG2400 sent letter -</strong>  Please be advised that the services indicated on this claim were rendered in the members home plan service area and therefore this claim should be filed to the members home plan, Blue Cross Blue Shield of Massachusetts.",
+          "<strong>RANLAB sent lettter -</strong>  Thank you for your Inquiry  , Please be advised that This claim/service is not payable under our service area. This claim must be filed to the Payer/Plan in whose service area the specimen was collected.",
+          "<strong>R17400 sent letter - </strong>  Please be advised, inquiry regarding above claim has been received and reviewed. After review, it has been determined that modifier code does not correspondence with procedure code. Please resubmit corrected claim for further process.",
+          "<strong>RANSRX sent letter -</strong>  Please be notified that this claim/service is not payable under our service area.  The claim must be filed to the Payer/Plan in whose service area the Ordering Physician is located.",
+          "<strong>RLABP0 sent letter - </strong>  Please be notified that the claim is denied as the laboratory procedures must be performed by the participating Laboratory Provider and is not the member's responsibility.",
+          "<strong>R19044 sent letter -</strong>  Please be notified that the claim is denied correctly as there is no surgery claim found in history. Please review and resubmit your request for further processing of this claim."
 
         ],
         1079: [
-          "<strong>Sent GI 111 to HP for DF 1079 </strong> - Please confirm denial. If correct, please provide information on where this claim should be sent for processing. Include any phone number or addresses."
+          "<strong>Sent GI 111 to HP for DF 1079 -</strong>  Please confirm denial. If correct, please provide information on where this claim should be sent for processing. Include any phone number or addresses."
 
         ],
 
         Zero_pricing: [
-          "<strong>Sent letter for zero pricing </strong> - The pricing on this claim has been verified and to the best of our knowledge the above claim has priced correctly. The claim allowed $0.00 as per your contract at the time of service. Please contact your provider contracting representative if you still dispute the rates applied. It may be due to an issue with your contract."
+          "<strong>Sent letter for zero pricing -</strong> The pricing on this claim has been verified and to the best of our knowledge the above claim has priced correctly. The claim allowed $0.00 as per your contract at the time of service. Please contact your provider contracting representative if you still dispute the rates applied. It may be due to an issue with your contract."
 
         ],
         DOR : [
-          "<strong>For DOR request sent letter with need info </strong> -As a non-contracted provider, if you wish to dispute the processing of this claim, a formal appeal with supporting documentation must be submitted. The member must execute an authorization allowing you to appeal on their behalf. This form is typically called a Designation of Authorized Representation form or DOR form. You can ask the member to supply you with this form, as this form can vary from plan to plan.In addition to the DOR form, your appeal must include the following:Complete, member identification number, Claim number, Date of service, Purpose or explanation of your appeal request."
+          "<strong>For DOR request sent letter with need info -</strong> As a non-contracted provider, if you wish to dispute the processing of this claim, a formal appeal with supporting documentation must be submitted. The member must execute an authorization allowing you to appeal on their behalf. This form is typically called a Designation of Authorized Representation form or DOR form. You can ask the member to supply you with this form, as this form can vary from plan to plan.In addition to the DOR form, your appeal must include the following:Complete, member identification number, Claim number, Date of service, Purpose or explanation of your appeal request."
 
         ],
         Close : [
-          "<strong>Sent GI 107 for close out</strong> -Please clarify DFMC (1069) applied on this claim ."
+          "<strong>Sent GI 107 for close out-</strong> Please clarify DFMC (1069) applied on this claim ."
 
         ],
         Adjustment : [
-          "<strong>Timily filling adjustment comment </strong> - Initiated adjustment to remove timely filing. ",
-          "<strong>CCCR adjustment comment</strong> - Initiated adjustment to allow pricing as per CCCR response .",
-          "<strong>Downcoaded adjustment comment(put U450 in ITS)</strong> - Initiated adjustment for pricing as per CCCR response Please remove special pricing and price as per UPCODING, condition code 029 ",
-          "<strong>Stand alone correct pricing comment </strong> -Initiated adjustment to allow correct pricing as per standalone . ",
-          "<strong>Ecode adjustment comment( E code and pricing as per claim and add U450 in ITS ) </strong> - Incorrect purchase pricing, Claims admin,' please update special pricing on HCPC E0601= $401.00/E0562 =#134.50' ",
+          "<strong>Timily filling adjustment comment -</strong>  Initiated adjustment to remove timely filing. ",
+          "<strong>CCCR adjustment comment -</strong>  Initiated adjustment to allow pricing as per CCCR response .",
+          "<strong>Downcoaded adjustment comment(put U450 in ITS) -</strong>  Initiated adjustment for pricing as per CCCR response Please remove special pricing and price as per UPCODING, condition code 029 ",
+          "<strong>Stand alone correct pricing comment - </strong> Initiated adjustment to allow correct pricing as per standalone . ",
+          "<strong>Ecode adjustment comment( E code and pricing as per claim and add U450 in ITS ) -</strong>  Incorrect purchase pricing, Claims admin,' please update special pricing on HCPC E0601= $401.00/E0562 =#134.50' ",
 
         ],
         dismiss : [
-          "<strong>other deparment paid claim after inquiry sent letter with  dismiss  </strong> - As per the review, your request has been resolved outside the provider dispute resolution channel under original claim (claim number). You will receive a new explanation of payment and any appropriate payment within two weeks. claim has been processed on (finalize date) with an issue date of (check date)."
+          "<strong>other deparment paid claim after inquiry sent letter with  dismiss - </strong>  As per the review, your request has been resolved outside the provider dispute resolution channel under original claim (claim number). You will receive a new explanation of payment and any appropriate payment within two weeks. claim has been processed on (finalize date) with an issue date of (check date)."
 
         ],
         duplicate : [
-          "<strong>No duplicate claim found sent GI 152 to HP </strong> - This claim is denying as a duplicate. Please provide duplicate claim information. If the claim is duplicated to a local claim, please provide a breakdown so we may inform our provider. ",
-          "<strong>Multiple Physician sent GI 168 to HP </strong> - Per provider, patient had visits with multiple physicians and the claim is not a duplicate. Please adjust or advise.",
-          "<strong>Multiple exam sent GI 168 to HP </strong> - Per provider, patient had multiple exams, and the claim is not a duplicate. Please adjust or advise. ",
+          "<strong>No duplicate claim found sent GI 152 to HP -</strong>  This claim is denying as a duplicate. Please provide duplicate claim information. If the claim is duplicated to a local claim, please provide a breakdown so we may inform our provider. ",
+          "<strong>Multiple Physician sent GI 168 to HP -</strong> Per provider, patient had visits with multiple physicians and the claim is not a duplicate. Please adjust or advise.",
+          "<strong>Multiple exam sent GI 168 to HP -</strong> Per provider, patient had multiple exams, and the claim is not a duplicate. Please adjust or advise. ",
           "<strong>Multiple service same day sent GI 168 to HP  </strong> -Per provider, patient was seen multiple times the same day and the claim is not a duplicate. Please adjust or advise. ",
-          "<strong>Original claim voided sent GI 152 to HP  </strong> - Please review the duplicate denial on this claim. If duping to the original SCCF, be advised, that SCCF has been voided. If duplicating to a different SCCF, please supply the SCCF number. ",
+          "<strong>Original claim voided sent GI 152 to HP  -</strong> Please review the duplicate denial on this claim. If duping to the original SCCF, be advised, that SCCF has been voided. If duplicating to a different SCCF, please supply the SCCF number. ",
 
         ],
         CCCR : [
-          "<strong>CCCR downcoaded (modify comment as per denial)</strong> - Provider disputing Timber denial for procedure code 99214 down coded 99213. ",
-          "<strong>CCCR CX denial  </strong> - Provider disputing CX denial.",
-          "<strong>CCCR IH deial </strong> - Provider disputing IH denial  ",
-          "<strong>CCCR Timber denial </strong> - Provider disputing Timber denial. ",
+          "<strong>CCCR downcoaded (modify comment as per denial) -</strong> Provider disputing Timber denial for procedure code 99214 down coded 99213. ",
+          "<strong>CCCR CX denial -</strong> Provider disputing CX denial.",
+          "<strong>CCCR IH deial -</strong>  Provider disputing IH denial.  ",
+          "<strong>CCCR Timber denial -</strong> Provider disputing Timber denial. ",
 
         ],
         Dup_cccr : [
-          "<strong>Duplicate claim denied with CCCR sent letter with upheld </strong> -Please be advised, the claim in question has been reviewed and found that the changes on this claim has been made on the original claim (duplicate claim number) The original claim denied with clinical editing, the procedure .(denied procedure code) is not recommended for separate reimbursement. Please submit your request under the original claim along with supporting documents for further review."
+          "<strong>Duplicate claim denied with CCCR sent letter with upheld -</strong> Please be advised, the claim in question has been reviewed and found that the changes on this claim has been made on the original claim (duplicate claim number) The original claim denied with clinical editing, the procedure .(denied procedure code) is not recommended for separate reimbursement. Please submit your request under the original claim along with supporting documents for further review."
 
         ],
         D25 : [
-          "<strong> D25 Policy 1 </strong> -In accordance with the Health Plan’s Bundled Services and Supplies Reimbursement Policy, certain services, and supplies, such as [code], are considered ineligible for separate reimbursement when reported by a professional provider. These services and/or supplies may not be reported with a primary service or as a standalone service. ",
-          "<strong> D25 Plicy 2</strong> - In accordance with the Health Plan’s Bundled Services and Supplies Reimbursement Policy, [procedure code] is not eligible for separate reimbursement when reported with [procedure code] by a professional provider. In most cases, modifiers will not override the denial when reported with a specified service or supply.",
-          "<strong> D25 Policy 3</strong> -In accordance with the Health Plan’s Bundled Services and Supplies Reimbursement Policy, [procedure code] is not eligible for separate reimbursement when performed with any other procedure, service, or supply. Modifiers 59, XE, XP, XS or XU will not override the denial for the services when reported with any other procedure, service, or supply. ",
-          "<strong> D25 Closing notes</strong> - Always bundle rule applies / letter to provider.",
+          "<strong> D25 Policy 1 -</strong> In accordance with the Health Plan’s Bundled Services and Supplies Reimbursement Policy, certain services, and supplies, such as [code], are considered ineligible for separate reimbursement when reported by a professional provider. These services and/or supplies may not be reported with a primary service or as a standalone service. ",
+          "<strong> D25 Plicy 2 -</strong> In accordance with the Health Plan’s Bundled Services and Supplies Reimbursement Policy, [procedure code] is not eligible for separate reimbursement when reported with [procedure code] by a professional provider. In most cases, modifiers will not override the denial when reported with a specified service or supply.",
+          "<strong> D25 Policy 3 -</strong> In accordance with the Health Plan’s Bundled Services and Supplies Reimbursement Policy, [procedure code] is not eligible for separate reimbursement when performed with any other procedure, service, or supply. Modifiers 59, XE, XP, XS or XU will not override the denial for the services when reported with any other procedure, service, or supply. ",
+          "<strong> D25 Closing notes -</strong> Always bundle rule applies / letter to provider.",
 
        ],
         HCM  : [
-          "<strong>HCM closing comment with need info </strong> - This claim requires pre-payment review. The records submitted with the claim, completed review however, additional information needed. Below is the original determination.+(copy and paste the notes from PPRU in TX popup). ",
-          "<strong>HCM closing notes </strong> - Provider on PPR review/ no new documentation attached/ sent letter. ",
+          "<strong>HCM closing comment with need info -</strong> This claim requires pre-payment review. The records submitted with the claim, completed review however, additional information needed. Below is the original determination.+(copy and paste the notes from PPRU in TX popup). ",
+          "<strong>HCM closing notes -</strong> Provider on PPR review/ no new documentation attached/ sent letter. ",
 
         ],
         freq_8  : [
-          "<strong>Frequency 8 claim close with need info </strong> - Please be advised, we have received your request for recoupment of payment.  Please submit a corrected claim form with frequency 8 referencing the original claim number for further handling of the claim. ",
+          "<strong>Frequency 8 claim close with need info -</strong>  Please be advised, we have received your request for recoupment of payment.  Please submit a corrected claim form with frequency 8 referencing the original claim number for further handling of the claim. ",
 
         ],
 
         phi  : [
-          "<strong>PHI sent letter and dismiss inquiry</strong> -The information received contains PHI for multiple members not relevant to your claim. We are unable to honor your request to forward these documents to the member’s benefit office due to HIPAA’s minimum necessary rule. Please remove all member information that is not relevant to your request and resubmit your request to the local Blue Cross and Blue Shield office. ",
+          "<strong>PHI sent letter and dismiss inquiry -</strong> The information received contains PHI for multiple members not relevant to your claim. We are unable to honor your request to forward these documents to the member’s benefit office due to HIPAA’s minimum necessary rule. Please remove all member information that is not relevant to your request and resubmit your request to the local Blue Cross and Blue Shield office. ",
 
         ],
         Corr : [
           "Claim has corrected claim in attachment which is out of score of PDR, hence route to correspondence. ",
-          "<strong> Edit finalized code as per your claim correspondance finalized code</strong> Claim has  finalization code  RCLMCO which is out of score of PDR, hence route to correspondence.",
+          "<strong> Edit finalized code as per your claim correspondance finalized code -</strong> Claim has  finalization code  RCLMCO which is out of score of PDR, hence route to correspondence.",
           "Created from claim denied for solicited information which is out of scope for pdr hence routed to correspondence",
-          "<strong> Edit EOB as per your claim correspondance EOB</strong> Provider submitted the claim with EOB 00940 which is out of scope for PDR. Hence routed to correspondence for review",
+          "<strong> Edit EOB as per your claim correspondance EOB -</strong> Provider submitted the claim with EOB 00940 which is out of scope for PDR. Hence routed to correspondence for review",
           "Claim has  CPRAS  message for Surprise billing which is out of score of PDR, hence route to  correspondence.",
           "Claim has  CPRAS  message for Correspondence which is out of score of PDR, hence route to correspondence.",
           "Claim has  CPRAS  message for clinical appeal  which is out of score of PDR, hence route to correspondence.",
@@ -430,25 +619,45 @@
 
         };
 
-      let matchedResults = [];
-      const allKeys = Object.keys(notesData);
+  let matchedResults = [];
+  const allKeys = Object.keys(notesData);
 
-      if (input) {
-        allKeys.forEach(key => {
-          matchedResults = matchedResults.concat(
-            notesData[key].filter(note => note.toLowerCase().includes(input))
-          );
-        });
-      } else if (denialKey && notesData[denialKey]) {
-        matchedResults = notesData[denialKey];
-      }
+  if (input) {
+    allKeys.forEach(key => {
+      matchedResults = matchedResults.concat(
+        notesData[key].filter(note => note.toLowerCase().includes(input))
+      );
+    });
+  } else if (denialKey && notesData[denialKey]) {
+    matchedResults = notesData[denialKey];
+  }
 
-      output.innerHTML = matchedResults.length > 0
-        ? matchedResults.map(n => `<div style='margin-bottom:8px;'>${n}</div>`).join('')
-        : 'No matching notes found.';
-    }
+  if (matchedResults.length === 0) {
+    output.innerHTML = 'No matching notes found.';
+    return;
+  }
 
- function divideText() {
+  output.innerHTML = matchedResults.map((note, i) => {
+    const textOnly = note.split('</strong>').pop().trim();
+    return `
+      <div style="margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; background: #f5f5f5; padding: 10px; border-radius: 6px;">
+        <div style="flex: 1; margin-right: 10px;">${note}</div>
+        <button class="copy-note-btn" data-text="${encodeURIComponent(textOnly)}" style="padding: 6px 12px; background-color: #00adb5; color: white; border: none; border-radius: 4px; cursor: pointer;">Copy</button>
+      </div>`;
+  }).join('');
+
+  document.querySelectorAll('.copy-note-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const text = decodeURIComponent(btn.getAttribute('data-text'));
+      const finalText = `${text} ${loggedInUser} |`; // Append login name
+      navigator.clipboard.writeText(finalText).then(() => {
+        btn.textContent = "Copied!";
+        setTimeout(() => btn.textContent = "Copy", 1000);
+      });
+    });
+  });
+}
+function divideText() {
   const input = document.getElementById('dividerText').value;
   const output = document.getElementById('lineResult');
   const lineLength = 60;
@@ -795,7 +1004,7 @@ table1: {
 ['1283','Medical Records'],
 ['1284','Medical Records'],
 ['1285','Medical Records'],
-['1286','Informational Only'],
+['1286','Duplicate medicare crossover'],
 ['1287','Billing'],
 ['1288','CHECK FOR PPR ISSUE (TX POP UP/DS POP UP)'],
 
@@ -28708,5 +28917,118 @@ document.getElementById('fileInput').addEventListener('change', function(event) 
   }
 }
 </script>
+
+<script>
+  let loggedInUser = ''; // Store login name
+
+  function login() {
+      const userName = document.getElementById('userName').value.trim();
+      if (userName) {
+          loggedInUser = userName; // Save login name
+          document.getElementById('loginScreen').style.display = 'none';
+          document.body.style.overflow = 'auto';
+      } else {
+          alert('Please enter your name to proceed.');
+      }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('loginScreen').style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+  });
+</script>
+
+
+
+<style>
+
+.sidebar.collapsed {
+  transform: translateX(-100%);
+  pointer-events: none;
+  background: transparent !important;
+  box-shadow: none !important;
+  height: 0;
+  width: 0;
+  overflow: hidden;
+}
+    
+.sidebar {
+  transition: transform 0.3s ease;
+}
+
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+
+  /* Responsive Layout */
+  @media screen and (max-width: 768px) {
+    .sidebar {
+      width: 100px;
+    }
+    .sidebar a {
+      font-size: 14px;
+      padding: 12px;
+    }
+    .content {
+      padding: 20px;
+    }
+    .notes-container {
+      flex-direction: column;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    header {
+      font-size: 20px;
+      padding: 15px;
+    }
+    .sidebar {
+      width: 80px;
+    }
+    .sidebar a {
+      font-size: 12px;
+      padding: 10px;
+    }
+    #themeToggle {
+      font-size: 12px;
+      padding: 4px 8px;
+    }
+  }
+</style>
+
+
+
+
+
+<script>
+  function toggleSidebar() {
+    const sidebar = document.querySelector('.sidebar');
+    sidebar.classList.toggle('collapsed');
+  }
+</script>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const sidebar = document.querySelector('.sidebar');
+    sidebar.classList.add('collapsed');
+
+    document.body.addEventListener('mousemove', (e) => {
+      if (e.clientX < 20) {
+        sidebar.classList.remove('collapsed');
+      } else if (e.clientX > 240 && !sidebar.matches(':hover')) {
+        sidebar.classList.add('collapsed');
+      }
+    });
+  });
+</script>
+
 </body>
 </html>
